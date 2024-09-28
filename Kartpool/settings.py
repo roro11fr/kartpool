@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+# Asigură-te că calea este corectă și utilizează r înainte de string
+GDAL_LIBRARY_PATH = r'C:\Users\franc\anaconda3\envs\gdal_env\Library\bin\gdal.dll'
+os.environ['GDAL_LIBRARY_PATH'] = GDAL_LIBRARY_PATH
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,8 +85,12 @@ WSGI_APPLICATION = 'Kartpool.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Folosește backend-ul PostGISCRE
+        'NAME': 'base',
+        'USER': 'postgres',  # Schimbă asta cu utilizatorul tău PostgreSQL
+        'PASSWORD': 'password',  # Schimbă asta cu parola ta PostgreSQL
+        'HOST': 'localhost',  # Sau IP-ul containerului Docker dacă folosești Docker
+        'PORT': '5432',  # Portul default pentru PostgreSQL
     }
 }
 

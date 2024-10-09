@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgis/postgis:latest
+    environment:
+      POSTGRES_DB: base
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      GDAL_LIBRARY_PATH: "/usr/lib/x86_64-linux-gnu/libgdal.so"
+      GEOS_LIBRARY_PATH: "/usr/lib/x86_64-linux-gnu/libgeos_c.so"

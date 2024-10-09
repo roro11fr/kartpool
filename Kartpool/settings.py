@@ -13,9 +13,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
-# Asigură-te că calea este corectă și utilizează r înainte de string
-GDAL_LIBRARY_PATH = r'C:\Users\franc\anaconda3\envs\gdal_env\Library\bin\gdal.dll'
-os.environ['GDAL_LIBRARY_PATH'] = GDAL_LIBRARY_PATH
+# # # Asigură-te că calea este corectă și utilizează r înainte de string
+# GDAL_LIBRARY_PATH = r'C:\PythonProjects\release-1928-x64-gdal-3-9-1-mapserver-8-2-0\bin\gdal.dll'
+# os.environ['GDAL_LIBRARY_PATH'] = GDAL_LIBRARY_PATH
+# os.environ['GEOS_LIBRARY_PATH'] = r'C:\PythonProjects\release-1928-x64-gdal-3-9-1-mapserver-8-2-0\bin\geos_c.dll'
+
+
+import os
+
+# Căile către librăriile GDAL și GEOS în container
+GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH', default='/usr/lib/libgdal.so')
+GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH', default='/usr/lib/libgeos_c.so')
 
 
 
@@ -44,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'stores',
     'wishlists',
     'home',
@@ -64,7 +73,7 @@ ROOT_URLCONF = 'Kartpool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,7 +98,7 @@ DATABASES = {
         'NAME': 'base',
         'USER': 'postgres',  # Schimbă asta cu utilizatorul tău PostgreSQL
         'PASSWORD': 'password',  # Schimbă asta cu parola ta PostgreSQL
-        'HOST': 'localhost',  # Sau IP-ul containerului Docker dacă folosești Docker
+        'HOST': 'db',  # Sau IP-ul containerului Docker dacă folosești Docker
         'PORT': '5432',  # Portul default pentru PostgreSQL
     }
 }
@@ -135,3 +144,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# settings.py
+
+STATIC_URL = '/static/'
+
+# Adaugă aceste linii pentru a include directoarele cu fișierele tale statice
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'home/static'),  # Include directorul static
+]

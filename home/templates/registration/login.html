@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block title %}Autentificare{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'home/css/login-sign.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Login</button>
+    </form>
+    <a href="{% url 'authView' %}" class="buttonT">Sign Up</a>
+</div>
+{% endblock %}

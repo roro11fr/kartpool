@@ -1,4 +1,4 @@
-from django.shortcuts import render  
+from django.shortcuts import render, redirect
 from rest_framework import viewsets  
 from rest_framework.response import Response  
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -8,10 +8,13 @@ from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
 from django.contrib.gis.geos import Point
 from django.http import JsonResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login
+from django.contrib import messages
 
 
-
-class HomePage(viewsets.GenericViewSet):  
+class HomePage(LoginRequiredMixin, viewsets.GenericViewSet):  
     renderer_classes = [TemplateHTMLRenderer]  
     template_name = 'home/index.html'  # Asigură-te că acest fișier există
 
@@ -51,3 +54,17 @@ def fetch_nearby_stores(request):
     ]
 
     return JsonResponse(stores_data, safe=False)
+
+def authView(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "Requirements not met. Please check the information you've entered.")
+    else:
+        form = UserCreationForm()  
+
+    return render(request, "registration/signup.html", {"form": form})  

@@ -1,20 +1,31 @@
+{% extends 'base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harta Magazine</title>
+
+{% block title %}
+Harta Magazine
+{% endblock %}
+
+{% block stylesheet %}
     <link rel="icon" href="{% static 'home/images/store_icon.png' %}" type="image/png">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <link rel="stylesheet" href="{% static 'home/css/styles.css' %}">  <!-- CSS personalizat -->
-</head>
-<body>
-    <div id="map" style="height: 600px;"></div>  <!-- Div-ul pentru hartă -->
-    <script src="{% static 'home/js/map.js' %}"></script>  <!-- Fișierul JavaScript -->
-</body>
-</html>
+    <link rel="stylesheet" href="{% static 'home/css/styles.css' %}">
+{% endblock %}
 
+{% block content %}
+    <div id="map" style="height: 600px;"></div>
+    <form method="post" id="wishlist-form">
+        {% csrf_token %}
+        <input type="text" id="wishlist-items" name="wishlist-items" placeholder="Adaugă articole...">
+        <button type="button" id="add-wishlist">Adaugă la Wishlist</button>
+    </form>
+    <div id="message"></div>    
+{% endblock %}
+
+{% block script %}
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="{% static 'home/js/map.js' %}"></script>
+    <script src="{% static 'wishlists/wishlists.js' %}"></script>
+{% endblock %}

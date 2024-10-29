@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+
+.form-container {
+    width: 350px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centrare pe orizontală */
+}
+
+label {
+    color: #fff;
+    font-size: 1.3em;
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+input {
+    width: 80%;  /* Păstrăm lățimea de 80% */
+    height: 30px;
+    background: #e0dede;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    display: block;
+    box-sizing: border-box;  /* Asigurăm că padding-ul nu afectează dimensiunea input-ului */
+}
+
+button {
+    width: 80%;  /* Aceeași lățime ca input-urile */
+    height: 40px;
+    margin: 20px auto;
+    background: #573b8a;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in;
+    display: block;
+    text-align: center;  /* Aliniere pe centru pentru text */
+    padding: 10px;  /* Adăugăm padding pentru ca textul să aibă spațiu */
+    box-sizing: border-box;  /* Asigurăm că padding-ul nu face butonul mai mare decât este */
+}
+
+button:hover {
+    background: #6d44b8;
+}
+
+button span {
+    display: inline-block;
+    vertical-align: middle;  /* Centrăm textul vertical */
+    line-height: normal;
+}
+.buttonT {
+    display: inline-block; /* Face ca link-ul să arate ca un buton */
+    padding: 10px 20px; /* Spațiu interior pentru a face butonul mai mare */
+    margin-top: 15px; /* Distanța deasupra butonului de login */
+    background-color: #4CAF50; /* Culoare de fundal verde */
+    color: white; /* Culoare text albă */
+    text-align: center; /* Centrarea textului */
+    text-decoration: none; /* Elimină sublinierea */
+    border-radius: 5px; /* Colțuri rotunjite */
+}
+
+.buttonT:hover {
+    background-color: #45a049; /* Schimbă culoarea de fundal la hover */
+}
+
+.alert-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: absolute; /* Position it at the top */
+    top: 20px; /* Distance from the top */
+    left: 50%; /* Position left to 50% */
+    transform: translateX(-50%); /* Center it by adjusting back 50% of its width */
+    width: 100%; /* Full width to allow centering */
+    z-index: 1000; /* Ensure it appears above other elements */
+    margin-bottom: 15px; /* Space below alert */
+}
+
+.alert {
+    background-color: #f8d7da; /* Light pink background for error messages */
+    color: #721c24; /* Dark text color */
+    border: 1px solid #f5c6cb; /* Pink border */
+    padding: 10px; /* Padding */
+    border-radius: 5px; /* Rounded corners */
+    opacity: 1; /* Start fully visible */
+    transition: opacity 1s ease; /* Transition for fade out */
+    text-align: center; /* Center text inside the alert */
+}

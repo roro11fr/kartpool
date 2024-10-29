@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %} 
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'home/css/login-sign.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="alert-container">  <!-- Container for alert messages -->
+    {% if messages %}
+        <div class="alert">
+            {% for message in messages %}
+                <p>{{ message }}</p>  <!-- Display each message -->
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<div class="form-container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form -->
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'login' %}" class="buttonT">Login</a>  <!-- Link to login page -->
+</div>
+
+{% block scripts %}
+    <script>
+        // Check if there are any messages to show
+        const alerts = document.querySelector('.alert');
+        if (alerts) {
+            // Set a timer to remove the alert after 10 seconds
+            setTimeout(() => {
+                alerts.style.transition = "opacity 1s ease";  // Add a transition for fading
+                alerts.style.opacity = "0";  // Start fading out
+                setTimeout(() => {
+                    alerts.remove();  // Remove the alert from the DOM
+                }, 1000);  // Wait for the fade-out transition to complete
+            }, 5000);  // Wait for 10 seconds
+        }
+    </script>
+{% endblock %}
+{% endblock %}

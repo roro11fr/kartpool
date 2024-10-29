@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Pagina Standard{% endblock %}</title>
+
+    {% block stylesheet %}{% endblock %}
+</head>
+<body>
+
+    <script type="text/javascript">
+        // Setează variabila USERNAME din contextul Django
+        const USERNAME = "{% if request.user.is_authenticated %}{{ request.user.username }}{% else %}null{% endif %}";
+        let SELECTED_STORE_ID = null;  // Aceasta poate fi setată ulterior după selectarea magazinului
+    
+        if (!USERNAME) {
+            console.log("Utilizatorul nu este autentificat.");
+        }
+    </script>
+
+    <script src="{% static 'wishlists/wishlists.js' %}"></script>
+
+    {% block content %}{% endblock %}
+    
+    {% block script %}
+    {% endblock %}
+</body>
+</html>
+

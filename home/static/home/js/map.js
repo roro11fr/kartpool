@@ -42,7 +42,6 @@ function addGeocoder(map) {
                     console.log('No stores found for the selected location.');
                 }
             });
-            ;
         } else {
             console.error('Coordonatele sunt invalide:', center); // Log pentru coordonate invalide
         }
@@ -123,9 +122,14 @@ function plotStoresOnMap(map, storesGeoJson) {
         const marker = L.marker([coordinates[1], coordinates[0]], { icon: storeIcon }) // Folosește iconul personalizat
             .bindPopup(`<b>${properties.name}</b><br>Adresă: ${properties.address}<br>Telefon: ${properties.phone || 'N/A'}<br>Distanță: ${properties.distance.toFixed(2)} km`)
             .addTo(map);
+
+         marker.on('click', function () {
+            const storeId = properties.id; // Reținem id-ul magazinului
+            console.log('Store ID clicked:', storeId);
+            SELECTED_STORE_ID = storeId; // Stocăm ID-ul magazinului selectat într-o variabilă globală
+        });
     });
 }
-
 
 // Inițializează harta și geocoderul
 document.addEventListener('DOMContentLoaded', () => {

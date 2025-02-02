@@ -5,3 +5,72 @@
     border-radius: 50%;
     cursor: pointer;
 }
+#container {
+    display: flex; /* Folosește flexbox pentru a aranja elementele */
+    width: 100%;
+}
+
+#sidebar {
+    width: 300px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    justify-content: flex-start;
+}
+
+/* Butoanele pentru taburi (unul lângă altul) */
+#tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#tabs button {
+    flex: 1;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#tabs button:hover {
+    background-color: #0056b3;
+}
+
+#wishlist-form {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+#wishlist-items {
+    flex: 1; /* Câmpul de text ocupă tot spațiul rămas */
+    padding: 10px; /* Spațiu interior */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#add-wishlist {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#add-wishlist:hover {
+    background-color: #218838;
+}
+
+/* Harta (partea dreaptă) */
+#map {
+    flex-grow: 1; /* Harta ocupă tot spațiul rămas */
+    height: 600px;
+    margin-left: 10px; /* Spațiu între sidebar și hartă */
+}

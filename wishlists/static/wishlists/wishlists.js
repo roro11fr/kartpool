@@ -74,3 +74,68 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Butonul cu id 'add-wishlist' nu a fost găsit.");
     }
 });
+
+async function displayNearbyWishlists(latitude, longitude) {
+    try {
+        const nearbyWishlists = await fetchNearbyWishlists(latitude, longitude);
+        renderWishlists('nearby-wishlists', nearbyWishlists);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function displayMyRequests(latitude, longitude) {  
+    try {  
+        const myWishlists = await fetchNearbyWishlists(latitude, longitude, {buyer: USERNAME});  
+        renderWishlists('my-wishlists', myWishlists);  
+    } catch(error) {  
+        console.error(error);  
+    }  
+}
+
+async function displayMyTrips(latitude, longitude) {  
+    try {  
+        const myTrips = await fetchNearbyWishlists(latitude, longitude, {wishmaster: USERNAME});  
+        renderWishlists('my-trips', myTrips);  
+    } catch(error) {  
+        console.error(error);  
+    }  
+}
+
+async function fetchNearbyWishlists(latitude, longitude, options = {}) {
+    const url = new URL('/wishlists/', window.location.origin); // URL-ul pentru endpoint-ul API
+    const params = new URLSearchParams();
+
+    // Adaugă parametrii de interogare pentru latitudine, longitudine și opțiuni suplimentare
+    params.append('lat', latitude);
+    params.append('lng', longitude);
+    for (const [key, value] of Object.entries(options)) {
+        params.append(key, value);
+    }
+    url.search = params.toString(); // Setează parametrii în URL
+
+    // Trimite cererea GET către server
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error('Eroare la încărcarea wishlist-urilor');
+    }
+    return await response.json(); // Returnează rezultatele ca obiect JSON
+}
+
+function renderWishlists(tabId, wishlists) {
+    const container = document.getElementById(tabId);
+    container.innerHTML = '';  // Golește conținutul tab-ului înainte de a-l popula
+
+    // Afișează fiecare wishlist
+    wishlists.forEach(wishlist => {
+        const div = document.createElement('div');
+        div.classList.add('wishlist-item');
+        div.innerHTML = `
+            <h3>${wishlist.store.name}</h3>
+            <ul>
+                ${wishlist.items.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+        `;
+        container.appendChild(div);
+    });
+}

@@ -14,13 +14,30 @@ Harta Magazine
 {% endblock %}
 
 {% block content %}
+<div id="container">
+    <!-- Sidebar (partea stângă) -->
+    <div id="sidebar">
+        <!-- Butoanele pentru taburi (unul lângă altul) -->
+        <div id="tabs">
+            <button onclick="displayNearbyWishlists(latitude, longitude)">Wishlist-uri din apropiere</button>
+            <button onclick="displayMyRequests(latitude, longitude)">Cererile mele</button>
+            <button onclick="displayMyTrips(latitude, longitude)">Tripurile mele</button>
+        </div>
+
+        <!-- Formularul pentru wishlist (buton și câmp de text unul lângă altul) -->
+        <form method="post" id="wishlist-form">
+            {% csrf_token %}
+            <input type="text" id="wishlist-items" name="wishlist-items" placeholder="Adaugă articole...">
+            <button type="button" id="add-wishlist">Adaugă la Wishlist</button>
+        </form>
+
+        <!-- Mesajele -->
+        <div id="message"></div>
+    </div>
+
+    <!-- Harta (partea dreaptă) -->
     <div id="map" style="height: 600px;"></div>
-    <form method="post" id="wishlist-form">
-        {% csrf_token %}
-        <input type="text" id="wishlist-items" name="wishlist-items" placeholder="Adaugă articole...">
-        <button type="button" id="add-wishlist">Adaugă la Wishlist</button>
-    </form>
-    <div id="message"></div>    
+</div>
 {% endblock %}
 
 {% block script %}

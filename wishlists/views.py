@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import Wishlist  
 from .serializers import WishlistSerializer
-from .services import create_wishlist
+from .services import create_wishlist, get_wishlists
 
 # Create your views here.
 from django.shortcuts import render
@@ -39,11 +39,23 @@ class WishlistView(viewsets.ModelViewSet):
         
         return Response(wishlist_data.data, status=201)  # Returnează un status 201 pentru creație reușită
 
-    def list(self, request, *args, **kwargs):
-        user_wishlists = Wishlist.objects.filter(buyer=request.user)
-        serializer = self.get_serializer(user_wishlists, many=True)
+    def list(self, request):
+        latitude = self.request.query_params.get('lat')
+        longitude = self.request.query_params.get('lng')
+        options = {}
+        for key in ('buyer', 'wishmaster'):
+            value = self.request.query_params.get(key)
+            if value:
+                options[key] = value
 
-        return Response(serializer.data)
+        wishlist = get_wishlists(
+            float(latitude),
+            float(longitude),
+            options
+        )
+        
+        wishlist_data = WishlistSerializer(wishlist, many=True)
+        return Response(wishlist_data.data)
 
 
 

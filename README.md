@@ -45,7 +45,7 @@ Kartpool este o aplicatie web construita cu Django (backend) si HTML/CSS (fronte
 ### 1. **Pagina de Login / Signup**
 Pagina unde utilizatorii se pot autentifica sau crea un cont pentru a accesa wishlist-urile si magazinele.
 
-![Login](https://github.com/roro11fr/kartpool/raw/main/screenshots/login_signup.png)
+![Login](./screenshots/login_signup.png)
 
 ### 2. **Vedere Initiala pe Harta**
 Aceasta este harta la inceput, cand aplicatia este incarcata pentru prima data, fara a cauta vreo locatie.

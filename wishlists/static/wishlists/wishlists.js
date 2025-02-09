@@ -94,16 +94,16 @@ function displayNearbyWishlists() {
 
 const USER_ID = localStorage.getItem('user_id');
 
-function displayMyRequests() {
-    clearAllTabs();
-    if (SELECTED_LATITUDE !== null && SELECTED_LONGITUDE !== null) {
-        fetchMyWishlists(SELECTED_LATITUDE, SELECTED_LONGITUDE)
-            .then(wishlists => renderWishlists('my-wishlists', wishlists))
-            .catch(error => console.error(error));
-    } else {
-        console.log("Selectează o locație înainte de a afișa cererile tale.");
-    }
-}
+// function displayMyRequests() {
+//     clearAllTabs();
+//     if (SELECTED_LATITUDE !== null && SELECTED_LONGITUDE !== null) {
+//         fetchMyWishlists(SELECTED_LATITUDE, SELECTED_LONGITUDE)
+//             .then(wishlists => renderWishlists('my-wishlists', wishlists))
+//             .catch(error => console.error(error));
+//     } else {
+//         console.log("Selectează o locație înainte de a afișa cererile tale.");
+//     }
+// }
 
 function displayMyTrips() {
     clearAllTabs();

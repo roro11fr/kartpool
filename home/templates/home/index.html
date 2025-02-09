@@ -19,10 +19,15 @@ Harta Magazine
     <div id="sidebar">
         <!-- Butoanele pentru taburi (unul lângă altul) -->
         <div id="tabs">
-            <button onclick="displayNearbyWishlists(latitude, longitude)">Wishlist-uri din apropiere</button>
-            <button onclick="displayMyRequests(latitude, longitude)">Cererile mele</button>
-            <button onclick="displayMyTrips(latitude, longitude)">Tripurile mele</button>
+            <button onclick="displayNearbyWishlists()">Wishlist-uri din apropiere</button>
+            <button onclick="displayMyRequests()">Cererile mele</button>
+            <button onclick="displayMyTrips()">Tripurile mele</button>
         </div>
+
+        <!-- Div-urile pentru fiecare tab -->
+        <div id="nearby-wishlists"></div>
+        <div id="my-wishlists"></div>
+        <div id="my-trips"></div>
 
         <!-- Formularul pentru wishlist (buton și câmp de text unul lângă altul) -->
         <form method="post" id="wishlist-form">

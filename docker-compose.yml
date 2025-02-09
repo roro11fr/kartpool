@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgis/postgis:latest
@@ -11,6 +13,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   web:
+    platform: linux/amd64  # Sau linux/arm64 dacă sistemul tău este ARM
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -20,8 +23,8 @@ services:
     depends_on:
       - db
     environment:
-      GDAL_LIBRARY_PATH: "/usr/lib/x86_64-linux-gnu/libgdal.so"
-      GEOS_LIBRARY_PATH: "/usr/lib/x86_64-linux-gnu/libgeos_c.so"
+      GDAL_LIBRARY_PATH: "/usr/lib/x86_64-linux-gnu/libgdal.so"  # Sau /usr/lib/aarch64-linux-gnu/libgdal.so pentru ARM
+      GEOS_LIBRARY_PATH: "/usr/lib/x86_64-linux-gnu/libgeos_c.so"  # Sau /usr/lib/aarch64-linux-gnu/libgeos_c.so pentru ARM
 
 volumes:
   db_data:

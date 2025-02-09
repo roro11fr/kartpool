@@ -17,24 +17,31 @@ function addMap() {
 }
 
 // Funcția pentru a adăuga geocoder
+let SELECTED_LATITUDE = null;
+let SELECTED_LONGITUDE = null;
+
 function addGeocoder(map) {
     const geocoder = L.Control.geocoder({
         defaultMarkGeocode: true
     }).addTo(map);
 
-    // Evenimentul declanșat când o locație este găsită
     geocoder.on('markgeocode', function (e) {
-        console.log('Geocode event data:', e); // Verifică structura evenimentului
+        console.log('Geocode event data:', e);
 
-        const center = e.geocode && e.geocode.center; // Verifică dacă geocode are un centru valid
-
+        const center = e.geocode.center;
         if (center && center.lat !== undefined && center.lng !== undefined) {
-            // Setează harta la locația găsită
+            // Setează harta la locația selectată
             map.setView(center, 12);
 
-            // Obține magazinele în apropiere
-            fetchNearbyStores(center.lat, center.lng).then(stores => {
-                console.log('Stores response:', stores); // Loghează răspunsul
+            // Actualizează coordonatele globale
+            SELECTED_LATITUDE = center.lat;
+            SELECTED_LONGITUDE = center.lng;
+
+            console.log(`Selected location: lat=${SELECTED_LATITUDE}, lng=${SELECTED_LONGITUDE}`);
+
+            // Obține magazinele din apropiere
+            fetchNearbyStores(SELECTED_LATITUDE, SELECTED_LONGITUDE).then(stores => {
+                console.log('Stores response:', stores);
                 if (stores.length > 0) {
                     const geoJson = convertToGeoJson(stores);
                     plotStoresOnMap(map, geoJson);
@@ -43,11 +50,11 @@ function addGeocoder(map) {
                 }
             });
         } else {
-            console.error('Coordonatele sunt invalide:', center); // Log pentru coordonate invalide
+            console.error('Coordonatele sunt invalide:', center);
         }
     });
 
-    console.log('Geocoder added'); // Confirmare că geocoder-ul a fost adăugat
+    console.log('Geocoder added');
 }
 
 // Funcția pentru a obține magazinele în apropiere (API call)

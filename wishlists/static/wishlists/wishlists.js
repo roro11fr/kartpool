@@ -94,27 +94,27 @@ function displayNearbyWishlists() {
 
 const USER_ID = localStorage.getItem('user_id');
 
-// function displayMyRequests() {
-//     clearAllTabs();
-//     if (SELECTED_LATITUDE !== null && SELECTED_LONGITUDE !== null) {
-//         fetchMyWishlists(SELECTED_LATITUDE, SELECTED_LONGITUDE)
-//             .then(wishlists => renderWishlists('my-wishlists', wishlists))
-//             .catch(error => console.error(error));
-//     } else {
-//         console.log("Selectează o locație înainte de a afișa cererile tale.");
-//     }
-// }
-
-function displayMyTrips() {
+function displayMyRequests() {
     clearAllTabs();
     if (SELECTED_LATITUDE !== null && SELECTED_LONGITUDE !== null) {
-        fetchNearbyWishlists(SELECTED_LATITUDE, SELECTED_LONGITUDE, { buyer: USER_ID })
-            .then(trips => renderWishlists('my-trips', trips))
+        fetchMyWishlists(SELECTED_LATITUDE, SELECTED_LONGITUDE)
+            .then(wishlists => renderWishlists('my-wishlists', wishlists))
             .catch(error => console.error(error));
     } else {
-        console.log("Selectează o locație înainte de a afișa trip-urile tale.");
+        console.log("Selectează o locație înainte de a afișa cererile tale.");
     }
 }
+
+// function displayMyTrips() {
+//     clearAllTabs();
+//     if (SELECTED_LATITUDE !== null && SELECTED_LONGITUDE !== null) {
+//         fetchNearbyWishlists(SELECTED_LATITUDE, SELECTED_LONGITUDE, { buyer: USER_ID })
+//             .then(trips => renderWishlists('my-trips', trips))
+//             .catch(error => console.error(error));
+//     } else {
+//         console.log("Selectează o locație înainte de a afișa trip-urile tale.");
+//     }
+// }
 
 async function fetchMyWishlists(latitude, longitude) {
     const url = new URL('/api/wishlists/my_wishlists/', window.location.origin);

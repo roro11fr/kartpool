@@ -13,18 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
-# # # Asigură-te că calea este corectă și utilizează r înainte de string
-# GDAL_LIBRARY_PATH = r'C:\PythonProjects\release-1928-x64-gdal-3-9-1-mapserver-8-2-0\bin\gdal.dll'
-# os.environ['GDAL_LIBRARY_PATH'] = GDAL_LIBRARY_PATH
-# os.environ['GEOS_LIBRARY_PATH'] = r'C:\PythonProjects\release-1928-x64-gdal-3-9-1-mapserver-8-2-0\bin\geos_c.dll'
-
-
-import os
-
 # Căile către librăriile GDAL și GEOS în container
-GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH', default='/usr/lib/libgdal.so')
-GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH', default='/usr/lib/libgeos_c.so')
-
+GDAL_LIBRARY_PATH = os.getenv("GDAL_LIBRARY_PATH", default="/usr/lib/libgdal.so")
+GEOS_LIBRARY_PATH = os.getenv("GEOS_LIBRARY_PATH", default="/usr/lib/libgeos_c.so")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ar&i6l+bo#p=is*7wai0^79kvz(^xzgrwbcv=)1m*sh7cz9g(i'
+SECRET_KEY = "django-insecure-ar&i6l+bo#p=is*7wai0^79kvz(^xzgrwbcv=)1m*sh7cz9g(i"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,60 +37,61 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.gis',
-    'stores',
-    'wishlists',
-    'home',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.gis",
+    "stores",
+    "wishlists",
+    "home",
+    "storemetrics",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'Kartpool.urls'
+ROOT_URLCONF = "Kartpool.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'Kartpool.wsgi.application'
+WSGI_APPLICATION = "Kartpool.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Folosește backend-ul PostGISCRE
-        'NAME': 'base',
-        'USER': 'postgres',  # Schimbă asta cu utilizatorul tău PostgreSQL
-        'PASSWORD': 'password',  # Schimbă asta cu parola ta PostgreSQL
-        'HOST': 'db',  # Sau IP-ul containerului Docker dacă folosești Docker
-        'PORT': '5432',  # Portul default pentru PostgreSQL
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",# noqa: E501
+        "NAME": "base",  # noqa: E501
+        "USER": "postgres",  # Schimbă asta cu utilizatorul tău PostgreSQL
+        "PASSWORD": "password",  # Schimbă asta cu parola ta PostgreSQL
+        "HOST": "db",  # noqa: E501
+        "PORT": "5432",  # Portul default pentru PostgreSQL
     }
 }
 
@@ -109,16 +101,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator", # noqa: E501
+    },  # noqa: E501
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },  # noqa: E501
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -126,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -138,24 +130,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # settings.py
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Adaugă aceste linii pentru a include directoarele cu fișierele tale statice
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'home/static'),  # Include directorul static
+    os.path.join(BASE_DIR, "home/static"),  # Include directorul static
 ]
 
 # Pagina de redirecționare după login
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "login"

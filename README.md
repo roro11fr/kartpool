@@ -61,3 +61,29 @@ Dupa ce faci o cautare pentru o locatie, harta se umple cu magazinele aflate pe 
 Tab-ul "Wishlist-uri Aproape" afiseaza toate wishlist-urile apropiate ale utilizatorilor din zona, aflate pe o raza de 3 km.
 
 ![Wishlist-uri Aproape](./screenshots/nearby_wishlists.png)
+
+
+## Functionalitate Noua Adaugata
+
+### Estimate Time Microservice (`storemetrics`)
+Am adăugat o componentă de tip microserviciu în cadrul proiectului, denumită `storemetrics`, care expune un endpoint REST asincron pentru estimarea timpului necesar deplasării.
+
+#### 🔹 Endpoint:
+```
+POST /api/storemetrics/estimate-time/
+```
+
+#### 🔹 Ce face:
+- Primește un JSON cu parametrii:
+  - `mode`: tipul de deplasare (`walk` sau `bike`)
+  - `distance_km`: distanța în kilometri
+- Validează inputul cu `Pydantic` (inclusiv pattern regex)
+- Simulează operație asincronă cu `asyncio.sleep`
+- Returnează timpul estimat în minute
+- A fost scris un test unitar complet pentru validarea funcționalității
+
+#### 🔹 Tehnologii folosite:
+- `Pydantic`: validare input
+- `asyncio`: simulare asincronă
+- `flake8` + `black`: linting și format automat
+- `Django TestCase`: test unitar scris și validat
